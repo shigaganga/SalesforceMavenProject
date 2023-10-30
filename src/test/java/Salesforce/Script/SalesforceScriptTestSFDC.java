@@ -72,14 +72,14 @@ clickElement(buttonEle,"login button");
 driver.navigate().refresh();
 //Thread.sleep(5000);
 waitForVisibility(buttonEle, 10, "button textbox");
-/*WebElement userId=driver.findElement(By.xpath("//div[(@id='userNavButton')]/span[@id='userNavLabel']"));
+WebElement userId=driver.findElement(By.xpath("//div[(@id='userNavButton')]/span[@id='userNavLabel']"));
 driver.navigate().refresh();
 waitForVisibility(userId, 5,"useid box");
 clickElement(userId,"userid button");
 WebElement logoutlink=driver.findElement(By.linkText("Logout"));
-waitForVisibility(logoutlink, 5,"move to");
+selectByTextData(logoutlink, "Logout", "logout dropdown");
 clickElement(logoutlink,"logout button");
-}*/}
+}
 	@Test
 public static void login_SalesForceCase4() throws InterruptedException {
 

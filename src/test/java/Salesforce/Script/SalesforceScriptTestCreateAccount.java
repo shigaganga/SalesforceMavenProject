@@ -60,8 +60,11 @@ public class SalesforceScriptTestCreateAccount extends SalesforceBaseTest{
 	WebElement createView=driver.findElement(By.xpath("//a[contains(text(),'Create New View')]"));
 	clickElement(createView, "create view");
 	WebElement viewnameBox=driver.findElement(By.xpath("//input[@id='fname']"));
-	
-	enterText(viewnameBox, view.name, "viewName box");
-	ent
+	String viewNameSend=appProp.getProperty("view.name");
+	enterText(viewnameBox,viewNameSend, "viewName box");
+	WebElement uniqueViewnameBox=driver.findElement(By.xpath("//input[@id='devname']"));
+	String uniqueViewNameSend=appProp.getProperty("unique.view.name");
+	enterText(uniqueViewnameBox,uniqueViewNameSend, "UniqueviewName box");
+}
 }
 }

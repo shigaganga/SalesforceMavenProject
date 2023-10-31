@@ -1,18 +1,15 @@
-/**
- * 
- */
+
 package Salesforce.Base;
 
 import java.io.File;
-import java.io.IOException;
 import java.time.Duration;
 import java.util.List;
+import java.util.Properties;
 import java.util.Set;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotInteractableException;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -22,16 +19,31 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
 
-import com.google.common.io.Files;
-
-/**
- * @author shiga
- *
- */
+import Salesforce.Base.utility.PropertiesUtility;
 public class SalesforceBaseTest {
 	protected static WebDriver driver=null;
 	static WebDriverWait wait=null;
+	
+	@BeforeMethod
+	@Parameters("browsername")
+	public static void setUpBeforeTestMethod(@Optional("firefox") String browser_name) {
+		PropertiesUtility pro=new PropertiesUtility();
+		Properties applicationProFile=pro.loadFile("applicationDataProperties");
+		String url=applicationProFile.getProperty("url");
+		launchBrowser(browser_name);
+		maximiseBrowser();
+		goToUrl(url);
+	}
+	@AfterMethod
+	public void tearDownAfterTestMethod() {
+		closeBrowser();
+		System.out.println("******login_to_Salesforce automation script ended***********");
+	}
 	
 	public static void launchBrowser(String browserName) {
 		switch(browserName) {
@@ -90,20 +102,20 @@ public class SalesforceBaseTest {
 			}
 	}
 	
-	//***Screenshot reusablemethod***//
-	public static void  screenshotDriver(WebDriver driver,String filepath)throws IOException
-	{
- TakesScreenshot  screencapture=(TakesScreenshot)driver;
- File src=screencapture.getScreenshotAs(OutputType.FILE);
- File destination=new File(filepath);
- Files.copy(src,destination);
-	}
-	public static void  screenshotElement(WebElement element,String filepath)throws IOException
-	{
- File src=element.getScreenshotAs(OutputType.FILE);
- File destination=new File(filepath);
- Files.copy(src,destination);
-	}
+//	//***Screenshot reusablemethod***//
+//	//public static void  screenshotDriver(WebDriver driver,String filepath)throws IOException
+//	{
+// TakesScreenshot  screencapture=(TakesScreenshot)driver;
+// File src=screencapture.getScreenshotAs(OutputType.FILE);
+ //File destination=new File(filepath);
+// Files.copy(src,destination);
+//	}
+//	public static void  screenshotElement(WebElement element,String filepath)throws IOException
+//	{
+ //File src=element.getScreenshotAs(OutputType.FILE);
+// File destination=new File(filepath);
+// Files.copy(src,destination);
+	//} 
 	//***wait reusable methods***********//
 	public static void waitForVisibility(WebElement ele,int time,int pollingtime,String objectName) {
 		FluentWait<WebDriver> wait=new FluentWait<WebDriver>(driver);

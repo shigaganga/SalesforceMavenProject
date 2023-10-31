@@ -3,11 +3,14 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="Salesforce.Script.SalesforceScriptTestSFDC">
+      <class name="Salesforce.Script.SalesforceScriptTestCreateAccount">
         <methods>
-          <include name="testcase1"/>
+          <include name="setUpBeforeTestMethod"/>
+          <include name="tearDownAfterTestMethod"/>
+          <include name="testcase5"/>
+          <include name="testcase6"/>
         </methods>
-      </class> <!-- Salesforce.Script.SalesforceScriptTestSFDC -->
+      </class> <!-- Salesforce.Script.SalesforceScriptTestCreateAccount -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

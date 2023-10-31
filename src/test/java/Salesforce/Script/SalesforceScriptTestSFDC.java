@@ -1,6 +1,5 @@
 package Salesforce.Script;
 import org.testng.annotations.Test;
-
 import Salesforce.Base.SalesforceBaseTest;
 import org.testng.AssertJUnit;
 import org.testng.annotations.Test;
@@ -20,7 +19,7 @@ public class SalesforceScriptTestSFDC extends SalesforceBaseTest {
 		PropertiesUtility pro=new PropertiesUtility();
 		Properties appProp= pro.loadFile("applicationDataProperties");
 		String username=appProp.getProperty("login.valid.userid");
-		String password=appProp.getProperty("");
+		String password=appProp.getProperty("login.blank.password");
 		WebElement usernameEle = driver.findElement(By.id("username"));
 		waitForVisibility(usernameEle, 5, 2, "username textbox");
 		enterText(usernameEle,username,"username textbox");
@@ -28,7 +27,8 @@ public class SalesforceScriptTestSFDC extends SalesforceBaseTest {
 		enterText(passwordEle,password,"password textbox");
 		WebElement buttonEle=driver.findElement(By.id("Login"));
 		clickElement(buttonEle,"login button");
-		String actual=getTextFromElement(buttonEle,"loginText");
+		WebElement errorEle=driver.findElement(By.xpath("//div[@id='error']"));
+		String actual=getTextFromElement(errorEle,"errorText");
 		Assert.assertEquals(actual, expected,"Fail: testcase failed");
 	}
 	@Test
@@ -42,10 +42,11 @@ public class SalesforceScriptTestSFDC extends SalesforceBaseTest {
 		waitForVisibility(usernameEle, 5, 2, "username textbox");
 		enterText(usernameEle,username,"username textbox");
 		WebElement passwordEle = driver.findElement(By.id("password"));
+		waitForVisibility(passwordEle, 5, 2, "password textbox");
 		enterText(passwordEle,password,"password textbox");
 		WebElement buttonEle=driver.findElement(By.id("Login"));
+		waitForVisibility(buttonEle, 5, 2, "button textbox");
 		clickElement(buttonEle,"login button");
-		String actual=getTextFromElement(buttonEle,"loginText");
 		System.out.println("salesforce home page opened");
 	}
 	@Test
